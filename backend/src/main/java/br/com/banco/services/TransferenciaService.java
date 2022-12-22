@@ -33,7 +33,7 @@ public class TransferenciaService {
 	}
 	
 	public List<TransferenciaDTO> findByName (String nome_operador_transacao){
-		List<TransferenciaDTO> transferencias = repository.buscarPorNome(nome_operador_transacao);
+		List<TransferenciaDTO> transferencias = repository.buscarPorNome(nome_operador_transacao.trim().toUpperCase());
 		return transferencias;
 	}
 

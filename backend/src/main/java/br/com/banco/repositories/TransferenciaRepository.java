@@ -12,7 +12,7 @@ import br.com.banco.entities.Transferencia;
 @Repository
 public interface TransferenciaRepository extends JpaRepository<Transferencia, Long>{
 
-	@Query(value = "select u from Transferencia u where u.nome_operador_transacao like %?1% ")
+	@Query(value = "select u from Transferencia u where upper(trim(u.nome_operador_transacao)) like %?1% ")
 	List<TransferenciaDTO> buscarPorNome (String nome_operador_transacao );
 
 }
