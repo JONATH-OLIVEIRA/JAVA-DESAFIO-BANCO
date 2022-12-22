@@ -1,5 +1,6 @@
 package br.com.banco.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -28,7 +29,12 @@ public class TransferenciaService {
 	public TransferenciaDTO findaById(Long id) {
 		Optional<Transferencia> obj = repository.findById(id);
 		Transferencia entity = obj.orElseThrow(() -> new ResourceNotFoundException("Nao Encontrado"));
-		return new TransferenciaDTO(entity, entity.getContas());
+		return new TransferenciaDTO(entity);
+	}
+	
+	public List<TransferenciaDTO> findByName (String nome_operador_transacao){
+		List<TransferenciaDTO> transferencias = repository.buscarPorNome(nome_operador_transacao);
+		return transferencias;
 	}
 
 	@Transactional(readOnly = true)

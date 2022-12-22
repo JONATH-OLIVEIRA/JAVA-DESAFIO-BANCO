@@ -28,10 +28,11 @@ public class ContaService {
 	public ContaDTO findaById(Long id) {
 		Optional<Conta> obj = repository.findById(id);
 		Conta entity = obj.orElseThrow(() -> new ResourceNotFoundException("Nao Encontrado"));
-		return new ContaDTO(entity);
+		return new ContaDTO(entity, entity.getTransferencias());
 	}
 
 	@Transactional(readOnly = true)
+
 	public ContaDTO insert(ContaDTO dto) {
 		Conta entity = new Conta();
 		entity.setNome_responsavel(dto.getNome_responsavel());
@@ -71,5 +72,7 @@ public class ContaService {
 
 		return list.map(x -> new ContaDTO(x));
 	}
+
+
 
 }

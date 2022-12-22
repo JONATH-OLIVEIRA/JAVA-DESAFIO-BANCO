@@ -1,6 +1,7 @@
 package br.com.banco.resources;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,10 +14,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.banco.dto.ContaDTO;
 import br.com.banco.dto.TransferenciaDTO;
 import br.com.banco.services.TransferenciaService;
 
@@ -41,6 +43,14 @@ public class TransferenciaResource {
 		return ResponseEntity.ok().body(dto);
 	}
 
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public List<TransferenciaDTO> findByName(@RequestParam(name = "nome", required = true) String nome) {
+
+		List<TransferenciaDTO> list = service.findByName(nome);
+		return list;
+
+	}
+
 	@PostMapping
 	public ResponseEntity<TransferenciaDTO> insert(@RequestBody TransferenciaDTO dto) {
 		dto = service.insert(dto);
@@ -61,4 +71,5 @@ public class TransferenciaResource {
 		return ResponseEntity.noContent().build();
 
 	}
+
 }

@@ -1,11 +1,17 @@
 package br.com.banco.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -13,15 +19,20 @@ import javax.persistence.Table;
 public class Conta implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	private String nome_responsavel;
+
+	@ManyToMany
+	@JoinTable(name = "tb_movimentos_conta", joinColumns = @JoinColumn(name = "conta_id"), inverseJoinColumns = @JoinColumn(name = "transferencia_id"))
+
+	Set<Transferencia> transferencias = new HashSet<>();
 
 	public Conta() {
 
@@ -30,8 +41,8 @@ public class Conta implements Serializable {
 	public Conta(long id, String nome_responsavel) {
 		this.id = id;
 		this.nome_responsavel = nome_responsavel;
-
 	}
+
 
 	@Override
 	public int hashCode() {
@@ -42,9 +53,7 @@ public class Conta implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if ((obj == null) || (getClass() != obj.getClass()))
 			return false;
 		Conta other = (Conta) obj;
 		return id == other.id && Objects.equals(nome_responsavel, other.nome_responsavel);
@@ -66,6 +75,12 @@ public class Conta implements Serializable {
 		this.nome_responsavel = nome_responsavel;
 	}
 
-	
+	public Set<Transferencia> getTransferencias() {
+		return transferencias;
+	}
+
+	public void SetTransferencias(Set<Transferencia> transferencias) {
+		this.transferencias = transferencias;
+	}
 
 }

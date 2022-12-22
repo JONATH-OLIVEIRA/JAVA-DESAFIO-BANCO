@@ -1,12 +1,8 @@
 package br.com.banco.dto;
 
 import java.io.Serializable;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDate;
 
-import br.com.banco.entities.Conta;
 import br.com.banco.entities.Transferencia;
 
 public class TransferenciaDTO implements Serializable {
@@ -18,15 +14,13 @@ public class TransferenciaDTO implements Serializable {
 	private String tipo;
 	private double valor;
 	private String nome_operador_transacao;
-	private Instant data_transferencia;
-
-	private List<ContaDTO> contas = new ArrayList<>();
+	private LocalDate data_transferencia;
 
 	public TransferenciaDTO() {
 	}
 
 	public TransferenciaDTO(long id, String tipo, double valor, String nome_operador_transacao,
-			Instant data_transferencia) {
+			LocalDate data_transferencia) {
 		this.id = id;
 		this.tipo = tipo;
 		this.valor = valor;
@@ -40,12 +34,6 @@ public class TransferenciaDTO implements Serializable {
 		this.valor = entity.getValor();
 		this.nome_operador_transacao = entity.getNome_operador_transacao();
 		this.data_transferencia = entity.getData_transferencia();
-	}
-
-	public TransferenciaDTO(Transferencia entity, Set<Conta> contas) {
-		this(entity);
-		contas.forEach(cont -> this.contas.add(new ContaDTO(cont)));
-
 	}
 
 	public long getId() {
@@ -80,20 +68,12 @@ public class TransferenciaDTO implements Serializable {
 		this.nome_operador_transacao = nome_operador_transacao;
 	}
 
-	public Instant getData_transferencia() {
+	public LocalDate getData_transferencia() {
 		return data_transferencia;
 	}
 
-	public void setData_transferencia(Instant data_transferencia) {
+	public void setData_transferencia(LocalDate data_transferencia) {
 		this.data_transferencia = data_transferencia;
-	}
-
-	public List<ContaDTO> getContas() {
-		return contas;
-	}
-
-	public void setContas(List<ContaDTO> contas) {
-		this.contas = contas;
 	}
 
 }
