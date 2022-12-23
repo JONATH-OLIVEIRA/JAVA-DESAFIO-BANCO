@@ -1,11 +1,13 @@
 package br.com.banco.resources;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,9 +46,32 @@ public class TransferenciaResource {
 	}
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public List<TransferenciaDTO> findByName(@RequestParam(name = "nome", required = true) String nome) {
+	public List<TransferenciaDTO> findByName(@RequestParam(name = "nome") String nome) {
 
 		List<TransferenciaDTO> list = service.findByName(nome);
+		return list;
+
+	}
+
+	@RequestMapping(value = "/searchDate", method = RequestMethod.GET)
+	public List<TransferenciaDTO> findByDate(
+			@RequestParam(name = "inicio", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
+			@RequestParam(name = "termino", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate termino) {
+
+		List<TransferenciaDTO> list = service.findByDate(inicio, termino);
+		System.out.println(inicio + "" + termino);
+		return list;
+
+	}
+
+	@RequestMapping(value = "/searchNameDate", method = RequestMethod.GET)
+	public List<TransferenciaDTO> findByNameDate(
+			@RequestParam(name = "inicio", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
+			@RequestParam(name = "termino", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate termino,
+			@RequestParam(name = "nome", required = false) String name) {
+
+		List<TransferenciaDTO> list = service.findByNameDate(inicio, termino, name);
+
 		return list;
 
 	}

@@ -1,5 +1,6 @@
 package br.com.banco.services;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,12 +32,26 @@ public class TransferenciaService {
 		Transferencia entity = obj.orElseThrow(() -> new ResourceNotFoundException("Nao Encontrado"));
 		return new TransferenciaDTO(entity);
 	}
-	
+	@Transactional(readOnly = true)
 	public List<TransferenciaDTO> findByName (String nome_operador_transacao){
 		List<TransferenciaDTO> transferencias = repository.buscarPorNome(nome_operador_transacao.trim().toUpperCase());
 		return transferencias;
 	}
+	@Transactional(readOnly = true)
+	public List<TransferenciaDTO> findByDate (LocalDate inicio, LocalDate termino){
+		List<TransferenciaDTO> transferencias = repository.findByDate(inicio, termino);
+		
+		return transferencias;
+	}
 
+	@Transactional(readOnly = true)
+	public List<TransferenciaDTO> findByNameDate (LocalDate inicio, LocalDate termino, String nome_operador_transacao){
+		List<TransferenciaDTO> transferencias = repository.findByNameDate (inicio, termino, nome_operador_transacao );
+	
+		return transferencias;
+	}
+	
+	
 	@Transactional(readOnly = true)
 	public TransferenciaDTO insert(TransferenciaDTO dto) {
 		Transferencia entity = new Transferencia();

@@ -27,7 +27,7 @@ public class Transferencia implements Serializable {
 	private String tipo;
 	private String nome_operador_transacao;
 
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	private LocalDate data_transferencia;
 
 	public Transferencia() {
