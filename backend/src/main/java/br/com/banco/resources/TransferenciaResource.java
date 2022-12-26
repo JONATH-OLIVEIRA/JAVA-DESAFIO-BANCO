@@ -31,7 +31,7 @@ public class TransferenciaResource {
 	@Autowired
 	private TransferenciaService service;
 
-	@GetMapping
+	@GetMapping()
 	public ResponseEntity<Page<TransferenciaDTO>> findAll(Pageable pageable) {
 
 		Page<TransferenciaDTO> list = service.findAllPaged(pageable);

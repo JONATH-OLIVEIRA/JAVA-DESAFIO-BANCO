@@ -19,6 +19,8 @@ public interface TransferenciaRepository extends JpaRepository<Transferencia, Lo
 	@Query (value = "select u from Transferencia u where u.data_transferencia between :inicio and :termino ")
 	List<TransferenciaDTO> findByDate (LocalDate inicio, LocalDate termino );
 	
-	@Query (value = "select u from Transferencia u where u.data_transferencia between :inicio and :termino and u.nome_operador_transacao like %:nome% ")
+	@Query (value = "select u from Transferencia u where u.data_transferencia between :inicio and :termino and upper(trim(u.nome_operador_transacao)) like %:nome% ")
 	List<TransferenciaDTO> findByNameDate (LocalDate inicio, LocalDate termino, String nome );
+	
+	
 }

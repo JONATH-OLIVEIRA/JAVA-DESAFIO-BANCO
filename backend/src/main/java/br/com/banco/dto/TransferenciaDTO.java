@@ -15,21 +15,18 @@ public class TransferenciaDTO implements Serializable {
 	private double valor;
 	private String nome_operador_transacao;
 	private LocalDate data_transferencia;
-	private LocalDate inicio;
-	private LocalDate termino;
-
+	
 	public TransferenciaDTO() {
 	}
 
 	public TransferenciaDTO(long id, String tipo, double valor, String nome_operador_transacao,
-			LocalDate data_transferencia, LocalDate inicio, LocalDate termino) {
+			LocalDate data_transferencia) {
 		this.id = id;
 		this.tipo = tipo;
 		this.valor = valor;
 		this.nome_operador_transacao = nome_operador_transacao;
 		this.data_transferencia = data_transferencia;
-		this.inicio = inicio;
-		this.termino = termino;
+		
 	}
 
 	public TransferenciaDTO(Transferencia entity) {
@@ -38,8 +35,7 @@ public class TransferenciaDTO implements Serializable {
 		this.valor = entity.getValor();
 		this.nome_operador_transacao = entity.getNome_operador_transacao();
 		this.data_transferencia = entity.getData_transferencia();
-		this.inicio = inicio;
-		this.termino = termino;
+		
 	}
 
 	public long getId() {
@@ -82,22 +78,5 @@ public class TransferenciaDTO implements Serializable {
 		this.data_transferencia = data_transferencia;
 	}
 
-	public LocalDate getInicio() {
-		return inicio;
-	}
-
-	public void setInicio(LocalDate inicio) {
-		this.inicio = inicio;
-	}
-
-	public LocalDate getTermino() {
-		return termino;
-	}
-
-	public void setTermino(LocalDate termino) {
-		this.termino = termino;
-	}
 	
-	
-
 }
